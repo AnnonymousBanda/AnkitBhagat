@@ -52,7 +52,7 @@
     }
 
     body {
-        @apply bg-canvas-light text-ink-dark;
+        @apply bg-canvas-light text-ink-dark selection:bg-ink-dark selection:text-canvas-light;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -108,7 +108,7 @@
 
 @layer components {
     .display-header {
-        @apply font-display font-black uppercase leading-[0.8] tracking-[-0.05em];
+        @apply font-display font-black uppercase leading-[0.8] tracking-[-0.55rem] min-[600px]:tracking-[-0.8rem] selection:bg-ink-dark selection:text-canvas-light;
         font-size: clamp(4rem, 10vw, 12rem);
     }
 }

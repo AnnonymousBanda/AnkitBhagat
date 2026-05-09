@@ -1,9 +1,10 @@
 export default function Home() {
     return (
-        <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-                This is site is under design, please check back later.
-            </h1>
-        </div>
+        <main className="w-full">
+            <section className="max-container">
+                <h1 className="display-header">THE ARSENAL</h1>
+                <h1>I’m Ankit Bhagat. I’m a software engineer and machine</h1>
+            </section>
+        </main>
     )
 }

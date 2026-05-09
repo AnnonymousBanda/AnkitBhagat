@@ -1,21 +1,50 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
-})
-
 export const metadata: Metadata = {
-    title: 'Ankit Bhagat',
+    title: 'Ankit Bhagat — Software Engineer',
     description:
-        'Resume and portfolio of Ankit Bhagat, student at Indian Institute of Technology Patna.',
+        'Full-stack developer and ML engineer at IIT Patna. Building scalable digital infrastructure and AI-driven platforms.',
+    keywords: [
+        'Ankit Bhagat',
+        'Ankit Bhagat IIT Patna',
+        'Ankit Bhagat Portfolio',
+        'Software Engineer',
+        'Full-Stack Developer',
+        'Machine Learning Engineer',
+        'IIT Patna',
+        'Next.js',
+        'React',
+        'Python',
+        'Java DSA',
+    ],
+    authors: [{ name: 'Ankit Bhagat' }],
+    creator: 'Ankit Bhagat',
+    openGraph: {
+        type: 'website',
+        locale: 'en_IN',
+        url: 'https://ankitbhagat.me',
+        title: 'Ankit Bhagat — Software Engineer',
+        description:
+            'Engineering intelligent digital experiences. Building scalable web architecture and machine learning models at IIT Patna.',
+        siteName: 'Ankit Bhagat',
+        images: [
+            {
+                url: '/og-image.png',
+                width: 1200,
+                height: 630,
+                alt: 'Ankit Bhagat — Software Engineer',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Ankit Bhagat — Software Engineer',
+        description:
+            'Engineering intelligent digital experiences. Building scalable web architecture and machine learning models at IIT Patna.',
+        creator: '@Annonym_usBanda',
+        images: ['/og-image.png'],
+    },
 }
 
 export default function RootLayout({
@@ -24,11 +53,8 @@ export default function RootLayout({
     children: React.ReactNode
 }>) {
     return (
-        <html
-            lang="en"
-            className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-        >
-            <body className="min-h-full flex flex-col">{children}</body>
+        <html lang="en">
+            <body>{children}</body>
         </html>
     )
 }
