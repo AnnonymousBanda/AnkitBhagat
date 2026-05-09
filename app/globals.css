@@ -30,8 +30,10 @@
         text-decoration: none;
         list-style: none;
 
+        /* background-color: var(--color-canvas-light); */
+
         scrollbar-width: thin;
-        scrollbar-color: var(--color-ink-dark) var(--color-canvas-light);
+        scrollbar-color: var(--color-canvas-dark) var(--color-canvas-light);
     }
 
     ::-webkit-scrollbar {
@@ -44,11 +46,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--color-ink-dark);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: #333333;
+        background: var(--color-canvas-dark);
     }
 
     body {
@@ -98,7 +96,7 @@
     .max-container {
         max-width: 1600px;
         margin: 0 auto;
-        padding: 0 clamp(1rem, -0.35rem + 4.2188vw, 6.4rem);
+        padding-inline: clamp(1rem, -0.35rem + 4.2188vw, 6.4rem);
     }
 
     .flex-center {
