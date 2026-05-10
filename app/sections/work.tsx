@@ -20,7 +20,7 @@ const work = (): React.JSX.Element => {
             shadowRef.current,
             {
                 duration: 0.8,
-                scale: 0,
+                width: 0,
             },
             '-=0.8',
         )
@@ -138,9 +138,7 @@ const work = (): React.JSX.Element => {
                 <div
                     className={`lg:w-5/12 flex-center flex-col gap-[3rem] ${reverse ? 'text-right items-end!' : 'text-left items-start!'}`}
                 >
-                    <div
-                        className={`-translate-x-1/4 ${reverse ? 'lg:translate-x-1/4' : ''}`}
-                    >
+                    <div>
                         <span className="font-mono text-[1.4rem] tracking-widest uppercase opacity-60">
                             [ {year} {'//'} {role} ]
                         </span>
@@ -213,7 +211,7 @@ const work = (): React.JSX.Element => {
                                         className="flex items-center justify-center"
                                     >
                                         <Image
-                                            src={`/assets/arsenal/${encodeURI(match)}`}
+                                            src={`/assets/arsenal/${match}`}
                                             alt={tech}
                                             width={40}
                                             height={40}
