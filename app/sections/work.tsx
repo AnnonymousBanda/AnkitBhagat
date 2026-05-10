@@ -30,7 +30,7 @@ const work = (): React.JSX.Element => {
         year: string
         role: string
         title: string
-        description: string
+        description: string[]
         techStack: string[]
         liveLink?: string
         githubLink?: string
@@ -40,59 +40,78 @@ const work = (): React.JSX.Element => {
 
     const projectsData: ProjectProps[] = [
         {
-            title: 'IITP Portal',
-            year: '2026',
-            role: 'SYSTEM ARCHITECTURE',
-            description:
-                'Complete digital infrastructure overhaul and domain migration for the institute. Engineered for high availability and zero-downtime deployment.',
-            techStack: ['Next.js', 'Tailwind CSS', 'TypeScript', 'NGINX'],
+            title: 'IIT Patna Official Website',
+            year: '2025',
+            role: 'Lead Developer',
+            description: [
+                'Legacy infrastructure overhaul. Scaled for 10,000+ active users',
+                'Containerized routing system. Zero-downtime deployment architecture',
+                'Centralized data lakes into high-performance Next.js portal',
+            ],
+            techStack: [
+                'Next.js',
+                'GSAP',
+                'ExpressJS',
+                'MySQL',
+                'Redis',
+                'Docker',
+                'NGINX',
+            ],
             liveLink: 'https://iitp.ac.in',
             githubLink: '',
-            imageSrc: '/assets/project.png',
+            imageSrc: '/assets/works/iitp.png',
         },
         {
-            title: 'EcoPulse',
+            title: 'ATTRACK',
             year: '2025',
-            role: 'FULL-STACK & IOT',
-            description:
-                'AI-driven platform for real-time soil health monitoring and predictive plant disease detection. Integrates hardware sensor data with cloud-based inference.',
-            techStack: ['Python', 'Machine Learning', 'IoT Sensors', 'Render'],
-            liveLink: '#',
-            githubLink: '#',
-            imageSrc: '/assets/project.png',
+            role: 'FULL-STACK MOBILE DEVELOPER',
+            description: [
+                'Real-time attendance analytics',
+                'Live Google Sheets schedule syncing for IIT Patna Students',
+                'Microsoft & Google secure auth integration',
+            ],
+            techStack: [
+                'React Native',
+                'Expo',
+                'ExpressJS',
+                'MySQL',
+                'Redis',
+                'Prisma',
+                'Docker',
+                'NGINX',
+            ],
+            liveLink: 'https://atttrack.online',
+            githubLink: 'https://github.com/annonymousbanda/atttrack',
+            imageSrc: '/assets/works/atttrack.png',
         },
         {
-            title: 'ShrinkIt',
-            year: '2026',
-            role: 'BACKEND & AUTOMATION',
-            description:
-                'Automated Telegram bot engineered for high-efficiency video compression. Utilizes headless processing to reduce payload size without quality degradation.',
-            techStack: ['Python', 'AWS'],
-            liveLink: '',
-            githubLink: '#',
-            imageSrc: '/assets/project.png',
+            title: 'SHRINKIT',
+            year: '2024',
+            role: 'PYTHON DEVELOPER',
+            description: [
+                'Headless Telegram bot pipeline. On-the-fly media compression',
+                '50% spatial dimension reduction',
+                'Bandwidth optimization. Minimized overhead with minimal quality loss',
+            ],
+            techStack: ['Python', 'Telegram API', 'FFmpeg'],
+            liveLink: 'https://t.me/nnonymous_bot',
+            githubLink: 'https://github.com/annonymousbanda/shrinkit',
+            imageSrc: '/assets/works/shrinkit.png',
         },
         {
-            title: 'MNIST SVM',
-            year: '2026',
-            role: 'MACHINE LEARNING',
-            description:
-                'Multi-class predictive model for handwritten digit recognition. Achieved a 98% validation accuracy utilizing Support Vector Machines with an RBF kernel.',
-            techStack: ['Python', 'Scikit-Learn', 'SVM'],
-            liveLink: '',
-            githubLink: '#',
-            imageSrc: '/assets/project.png',
-        },
-        {
-            title: 'Urban Valuation',
-            year: '2026',
-            role: 'PREDICTIVE MODELING',
-            description:
-                'End-to-end machine learning pipeline predicting Bengaluru real estate valuations. Served via Flask API with an 87% confidence threshold.',
-            techStack: ['Python', 'Flask', 'Pandas'],
-            liveLink: '',
-            githubLink: '#',
-            imageSrc: '/assets/project.png',
+            title: 'FLAPPY BIRD',
+            year: '2023',
+            role: 'GAME DEVELOPER',
+            description: [
+                'Native C# environment. 2D physics-based arcade simulation',
+                'Custom collision mechanics. Real-time rigid body dynamics',
+                'Continuous state rendering. Fluid high-framerate logic execution',
+            ],
+            techStack: ['CSharp', 'Unity'],
+            liveLink:
+                'https://github.com/AnnonymousBanda/FlappyBird/raw/main/Flappy%20Bird.apk',
+            githubLink: 'https://github.com/annonymousbanda/flappybird',
+            imageSrc: '/assets/works/flappy.png',
         },
     ]
 
@@ -112,7 +131,7 @@ const work = (): React.JSX.Element => {
                 className={`w-full flex-center flex-col border-ink-dark gap-[3rem] ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
             >
                 <div
-                    className="lg:w-5/12 aspect-video bg-canvas-dark relative overflow-hidden rounded-md group bg-fixed bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-500"
+                    className="lg:w-5/12 aspect-video bg-canvas-dark relative overflow-hidden rounded-md group bg-fixed bg-cover bg-center grayscale-0 hover:grayscale-0 transition-all duration-500"
                     style={{ backgroundImage: `url(${imageSrc})` }}
                 ></div>
 
@@ -132,9 +151,16 @@ const work = (): React.JSX.Element => {
                     </div>
 
                     <div>
-                        <p className="font-sans leading-relaxed font-extralight">
-                            {description}
-                        </p>
+                        <div className="flex flex-col justify-items-start gap-[1rem]">
+                            {description.map((point, index) => (
+                                <p
+                                    key={index}
+                                    className="font-sans leading-relaxed font-extralight"
+                                >
+                                    {point}
+                                </p>
+                            ))}
+                        </div>
 
                         <div
                             className={`flex flex-wrap gap-[1rem] font-mono uppercase mt-[1rem] ${reverse ? 'justify-end!' : ''}`}
@@ -143,12 +169,14 @@ const work = (): React.JSX.Element => {
                                 const AVAILABLE_ICONS = [
                                     'AWS.svg',
                                     'C.svg',
-                                    'CPP.svg',
+                                    'C++.svg',
                                     'CSharp.svg',
                                     'Docker.svg',
+                                    'Expo.svg',
                                     'Express.svg',
                                     'Firebase.svg',
                                     'Git.svg',
+                                    'GSAP.svg',
                                     'Java.svg',
                                     'JavaScript.svg',
                                     'MongoDB.svg',
@@ -157,15 +185,18 @@ const work = (): React.JSX.Element => {
                                     'NGINX.svg',
                                     'Node.js.svg',
                                     'PostgresSQL.svg',
+                                    'Prisma.svg',
                                     'Python.svg',
+                                    'ReactNative.svg',
                                     'Redis.svg',
                                     'scikit-learn.svg',
                                     'Tailwind CSS.svg',
                                     'TypeScript.svg',
+                                    'Unity.svg',
                                 ]
 
                                 const normalize = (s: string) =>
-                                    s.toLowerCase().replace(/[^a-z0-9]/g, '')
+                                    s.toLowerCase().replace(/[^a-z0-9#+]/g, '')
 
                                 const match = AVAILABLE_ICONS.find(
                                     (file) =>
@@ -205,7 +236,7 @@ const work = (): React.JSX.Element => {
                                     [
                                 </span>
                                 <span className="transition-transform duration-150 group-hover:scale-90">
-                                    explorer
+                                    explore
                                 </span>
                                 <span className="absolute right-[-20px] opacity-0 transition-all duration-150 ease-in group-hover:right-[5px] group-hover:opacity-100">
                                     ]
