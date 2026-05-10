@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { gsap } from 'gsap'
-import Link from 'next/link'
 
 const work = (): React.JSX.Element => {
     const headerRef = useRef<HTMLDivElement>(null)
@@ -244,7 +244,7 @@ const work = (): React.JSX.Element => {
                             </Link>
                         )}
 
-                        {githubLink && (
+                        {githubLink ? (
                             <Link
                                 href={githubLink as string}
                                 target="_blank"
@@ -260,6 +260,44 @@ const work = (): React.JSX.Element => {
                                     ]
                                 </span>
                             </Link>
+                        ) : (
+                            <div className="group relative inline-flex items-center justify-center py-[0.5rem] px-[2rem] cursor-not-allowed font-mono text-[1.4rem] uppercase tracking-[4px] font-bold text-ink-dark">
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 opacity-0 pointer-events-none group-hover:animate-pop-fade z-20">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        className="text-ink-dark"
+                                    >
+                                        <rect
+                                            x="3"
+                                            y="11"
+                                            width="18"
+                                            height="11"
+                                            rx="2"
+                                            ry="2"
+                                        />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                </div>
+
+                                <span className="absolute left-[-20px] opacity-0 transition-all duration-150 ease-in group-hover:left-[5px] group-hover:opacity-100 text-ink-dark/40">
+                                    [
+                                </span>
+                                <div className="absolute top-1/2 left-[10%] w-[80%] h-[2px] bg-ink-dark scale-x-0 origin-center transition-transform duration-200 group-hover:scale-x-100 z-10" />
+                                <span className="transition-transform duration-150 group-hover:scale-90 group-hover:opacity-40">
+                                    code
+                                </span>
+                                <span className="absolute right-[-20px] opacity-0 transition-all duration-150 ease-in group-hover:right-[5px] group-hover:opacity-100 text-ink-dark/40">
+                                    ]
+                                </span>
+                            </div>
                         )}
                     </div>
                 </div>
