@@ -5,16 +5,28 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const work = (): React.JSX.Element => {
     const headerRef = useRef<HTMLDivElement>(null)
     const shadowRef = useRef<HTMLImageElement>(null)
 
+    gsap.registerPlugin(ScrollTrigger)
+
     useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'back.out(4)' } })
+        const tl = gsap.timeline({
+            defaults: { ease: 'back.out(3)' },
+            scrollTrigger: {
+                trigger: headerRef.current,
+                start: 'top 25%',
+                toggleActions: 'play none none none',
+                // markers: true,
+            },
+        })
+
         tl.from(headerRef.current, {
             duration: 0.8,
-            y: -200,
+            y: -250,
         })
         tl.from(
             shadowRef.current,
@@ -304,8 +316,8 @@ const work = (): React.JSX.Element => {
     }
 
     return (
-        <section className="max-container">
-            <div className="select-none w-full flex-center flex-col overflow-hidden gap-[3.5rem] mb-[10rem]">
+        <section className="pb-[10rem] max-container">
+            <div className="select-none w-full flex-center flex-col overflow-hidden pt-[10rem] gap-[3.5rem] mb-[10rem]">
                 <div className="flex-center flex-col" ref={headerRef}>
                     <p className="uppercase font-extralight opacity-50 tracking-[0.48px]">
                         What I&apos;ve been involved in

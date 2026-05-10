@@ -5,19 +5,22 @@ const navbar = (): React.JSX.Element => {
     return (
         <nav className="w-screen fixed top-0 left-0 z-1000 border-b border-b-canvas-dark bg-canvas-light">
             <div className="max-container py-[1rem] flex-center justify-between!">
-                <h3 className="font-display font-black tracking-[-0.12rem] uppercase text-[2.4rem]">
-                    Ankit Bhagat - SE
+                <h3 className="font-black tracking-[-0.18rem] uppercase text-[2rem]">
+                    Ankit
+                    <br />
+                    Bhagat
                 </h3>
 
-                <div className="flex-center gap-[2rem]">
-                    <p className="uppercase tracking-[2.8px] font-normal text-[1.6rem]">                       {'// work'}
+                <div className="flex-center gap-[1rem]">
+                    <p className="uppercase tracking-[2.8px] font-normal scale-75">
+                        {'// work'}
                     </p>
                     <span
                         aria-hidden="true"
                         className="h-[4.5rem] w-px shrink-0 bg-ink-dark"
                     />
 
-                    <p className="uppercase tracking-[2.8px] font-normal text-[1.6rem]">
+                    <p className="uppercase tracking-[2.8px] font-normal scale-75">
                         {'// arsenal'}
                     </p>
 
@@ -26,7 +29,7 @@ const navbar = (): React.JSX.Element => {
                         className="h-[4.5rem] w-px shrink-0 bg-ink-dark"
                     />
 
-                    <p className="uppercase tracking-[2.8px] font-normal text-[1.6rem]">
+                    <p className="uppercase tracking-[2.8px] font-normal scale-75">
                         {'// stats'}
                     </p>
 
@@ -35,7 +38,7 @@ const navbar = (): React.JSX.Element => {
                         className="h-[4.5rem] w-px shrink-0 bg-ink-dark"
                     />
 
-                    <p className="uppercase tracking-[2.8px] font-normal text-[1.6rem]">
+                    <p className="uppercase tracking-[2.8px] font-normal scale-75">
                         {'// comm'}
                     </p>
                 </div>
