@@ -277,11 +277,11 @@ const Comm = () => {
     )
 
     return (
-        <section
-            className="max-container flex-center min-h-screen py-[15rem]"
-            onClick={() => inputRef.current?.focus()}
-        >
-            <div className="h-full w-full overflow-hidden rounded-[2rem] border-2 border-black bg-[#FFFFFF] shadow-[12px_12px_0px_#000]">
+        <section className="max-container flex-center min-h-screen py-[15rem]">
+            <div
+                className="h-full w-full overflow-hidden rounded-[2rem] border-2 border-black bg-[#FFFFFF] shadow-[12px_12px_0px_#000]"
+                onClick={() => inputRef.current?.focus()}
+            >
                 <div className="flex items-center justify-between border-b-2 border-black px-8 py-5 max-md:flex-col max-md:items-start max-md:gap-3">
                     <div>
                         <h2 className="text-ink-dark font-bold tracking-tight uppercase">
