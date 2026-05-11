@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Matter from 'matter-js'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -51,10 +51,22 @@ const BLOCK_COLORS = [
     '#FDFCF0',
 ]
 
+function clampFontSize(W: number): number {
+    const base = 10
+    const minSize = 4 * base
+    const maxSize = 12 * base
+    const vw = W * 0.1
+    return Math.min(Math.max(vw, minSize), maxSize)
+}
+
+function letterSpacing(W: number): number {
+    return W >= 600 ? -0.8 * 16 : -0.55 * 16
+}
+
 export default function Arsenal() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const sectionRef = useRef<HTMLDivElement>(null)
-    const headingRef = useRef<HTMLDivElement>(null)
+    const triggerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -67,6 +79,13 @@ export default function Arsenal() {
         canvas.height = H
 
         const ctx = canvas.getContext('2d')!
+
+        const FONT_SIZE = clampFontSize(W)
+        const LINE_HEIGHT = FONT_SIZE * 0.8
+        const LETTER_SP = letterSpacing(W)
+        const HEADING_X = 48
+        const HEADING_Y = 160
+        const HEADING_TEXT = ['MY', 'ARSENAL']
 
         const {
             Engine,
@@ -126,28 +145,25 @@ export default function Arsenal() {
         })
 
         const mouse = Mouse.create(canvas)
-
-        const matterMouse = mouse as Matter.Mouse & {
+        const m = mouse as Matter.Mouse & {
             mousewheel: EventListener
             mousemove: EventListener
         }
+        mouse.element.removeEventListener('wheel', m.mousewheel)
+        mouse.element.removeEventListener('mousewheel', m.mousewheel)
+        mouse.element.removeEventListener('DOMMouseScroll', m.mousewheel)
+        mouse.element.removeEventListener('touchmove', m.mousemove)
 
-        mouse.element.removeEventListener('wheel', matterMouse.mousewheel)
-        mouse.element.removeEventListener('mousewheel', matterMouse.mousewheel)
-        mouse.element.removeEventListener(
-            'DOMMouseScroll',
-            matterMouse.mousewheel,
+        canvas.addEventListener(
+            'wheel',
+            (e: WheelEvent) => {
+                mouse.position.x =
+                    e.clientX - canvas.getBoundingClientRect().left
+                mouse.position.y =
+                    e.clientY - canvas.getBoundingClientRect().top
+            },
+            { passive: true },
         )
-
-        mouse.element.removeEventListener('touchmove', matterMouse.mousemove)
-
-        const passiveWheel = (e: WheelEvent) => {
-            ;(mouse as Matter.Mouse).position.x =
-                e.clientX - canvas.getBoundingClientRect().left
-            ;(mouse as Matter.Mouse).position.y =
-                e.clientY - canvas.getBoundingClientRect().top
-        }
-        canvas.addEventListener('wheel', passiveWheel, { passive: true })
 
         const mc = MouseConstraint.create(engine, {
             mouse,
@@ -155,8 +171,21 @@ export default function Arsenal() {
         })
         Composite.add(world, mc)
 
-        const runner = Runner.create()
+        const drawHeading = () => {
+            ctx.save()
+            ctx.font = `900 ${FONT_SIZE}px 'Anybody', sans-serif`
+            ctx.fillStyle = '#F5F5F5'
+            ctx.textBaseline = 'top'
+            ctx.letterSpacing = `${LETTER_SP}px`
 
+            HEADING_TEXT.forEach((line, i) => {
+                ctx.fillText(line, HEADING_X, HEADING_Y + i * LINE_HEIGHT)
+            })
+
+            ctx.restore()
+        }
+
+        const runner = Runner.create()
         let animId: number
 
         const draw = () => {
@@ -164,6 +193,8 @@ export default function Arsenal() {
 
             ctx.fillStyle = '#000000'
             ctx.fillRect(0, 0, W, H)
+
+            drawHeading()
 
             for (const { body, color, img } of blocks) {
                 const { x, y } = body.position
@@ -198,57 +229,42 @@ export default function Arsenal() {
             }
         }
 
-        draw()
+        document.fonts.load(`900 ${FONT_SIZE}px 'Anybody'`).then(() => {
+            draw()
 
-        gsap.registerPlugin(ScrollTrigger)
-        const st = ScrollTrigger.create({
-            trigger: headingRef.current,
-            start: 'top 20%',
-            onEnter: () => {
-                Runner.run(runner, engine)
-            },
-            once: true,
+            gsap.registerPlugin(ScrollTrigger)
+            const st = ScrollTrigger.create({
+                trigger: triggerRef.current,
+                start: 'top top',
+                onEnter: () => Runner.run(runner, engine),
+                once: true,
+            })
+
+            return () => {
+                cancelAnimationFrame(animId)
+                try {
+                    Runner.stop(runner)
+                } catch {}
+                Engine.clear(engine)
+                Composite.clear(world, false)
+                try {
+                    st.kill()
+                } catch {}
+                ScrollTrigger.getAll().forEach((s) => s.kill())
+            }
         })
-
-        return () => {
-            cancelAnimationFrame(animId)
-            canvas.removeEventListener('wheel', passiveWheel)
-            try {
-                Runner.stop(runner)
-            } catch {}
-            Engine.clear(engine)
-            Composite.clear(world, false)
-            try {
-                st.kill()
-            } catch {}
-            ScrollTrigger.getAll().forEach((s) => s.kill())
-        }
     }, [])
 
     return (
         <section
             ref={sectionRef}
-            className="pt-[10rem] w-full min-h-screen box-content bg-canvas-dark cursor-[url('/icons/cursor-dark.png')_0_0,_auto] overflow-hidden"
+            className="w-full h-screen bg-canvas-dark cursor-[url('/icons/cursor-dark.png')_0_0,_auto] relative overflow-hidden"
         >
-            <div className="max-container">
-                <div className="w-full relative">
-                    <div
-                        ref={headingRef}
-                        className="absolute top-0 left-0 pt-[7rem] z-10 pointer-events-none select-none"
-                    >
-                        <h1 className="display-header text-ink-light">
-                            My
-                            <br />
-                            Arsenal
-                        </h1>
-                    </div>
-
-                    <canvas
-                        ref={canvasRef}
-                        className="absolute inset-0 w-full h-screen"
-                    />
-                </div>
-            </div>
+            <div ref={triggerRef} className="absolute top-0 left-0 w-0 h-0" />
+            <canvas
+                ref={canvasRef}
+                className="absolute inset-0 w-full h-full"
+            />
         </section>
     )
 }
