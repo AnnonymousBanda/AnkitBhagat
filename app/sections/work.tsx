@@ -15,7 +15,7 @@ const work = (): React.JSX.Element => {
 
     useEffect(() => {
         const tl = gsap.timeline({
-            defaults: { ease: 'back.out(3)' },
+            defaults: { ease: 'back.out(1.4)' },
             scrollTrigger: {
                 trigger: headerRef.current,
                 start: 'top 25%',
@@ -26,7 +26,7 @@ const work = (): React.JSX.Element => {
 
         tl.from(headerRef.current, {
             duration: 0.8,
-            y: -250,
+            y: -300,
         })
         tl.from(
             shadowRef.current,
@@ -317,7 +317,7 @@ const work = (): React.JSX.Element => {
 
     return (
         <section className="pb-[10rem] max-container">
-            <div className="select-none w-full flex-center flex-col overflow-hidden pt-[10rem] gap-[3.5rem] mb-[10rem]">
+            <div className="select-none w-full flex-center flex-col overflow-hidden pt-[15rem] gap-[3.5rem] mb-[10rem]">
                 <div className="flex-center flex-col" ref={headerRef}>
                     <p className="uppercase font-extralight opacity-50 tracking-[0.48px]">
                         What I&apos;ve been involved in

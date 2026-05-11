@@ -34,7 +34,7 @@ const TECHS = [
     'Unity',
 ]
 
-const BLOCK_SIZE = 100
+const BLOCK_SIZE = 90
 const ICON_PADDING = 16
 const ICON_SIZE = BLOCK_SIZE - ICON_PADDING * 2
 
@@ -127,13 +127,24 @@ export default function Arsenal() {
 
         const mouse = Mouse.create(canvas)
 
-        mouse.element.removeEventListener('mousewheel', mouse.mousewheel)
-        mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel)
+        const matterMouse = mouse as Matter.Mouse & {
+            mousewheel: EventListener
+            mousemove: EventListener
+        }
+
+        mouse.element.removeEventListener('wheel', matterMouse.mousewheel)
+        mouse.element.removeEventListener('mousewheel', matterMouse.mousewheel)
+        mouse.element.removeEventListener(
+            'DOMMouseScroll',
+            matterMouse.mousewheel,
+        )
+
+        mouse.element.removeEventListener('touchmove', matterMouse.mousemove)
 
         const passiveWheel = (e: WheelEvent) => {
-            ;(mouse as any).position.x =
+            ;(mouse as Matter.Mouse).position.x =
                 e.clientX - canvas.getBoundingClientRect().left
-            ;(mouse as any).position.y =
+            ;(mouse as Matter.Mouse).position.y =
                 e.clientY - canvas.getBoundingClientRect().top
         }
         canvas.addEventListener('wheel', passiveWheel, { passive: true })
@@ -151,7 +162,7 @@ export default function Arsenal() {
         const draw = () => {
             animId = requestAnimationFrame(draw)
 
-            ctx.fillStyle = '#0d0d0f'
+            ctx.fillStyle = '#000000'
             ctx.fillRect(0, 0, W, H)
 
             for (const { body, color, img } of blocks) {
@@ -192,7 +203,7 @@ export default function Arsenal() {
         gsap.registerPlugin(ScrollTrigger)
         const st = ScrollTrigger.create({
             trigger: headingRef.current,
-            start: 'top 25%',
+            start: 'top 20%',
             onEnter: () => {
                 Runner.run(runner, engine)
             },
@@ -219,22 +230,24 @@ export default function Arsenal() {
             ref={sectionRef}
             className="pt-[10rem] w-full min-h-screen box-content bg-canvas-dark cursor-[url('/icons/cursor-dark.png')_0_0,_auto] overflow-hidden"
         >
-            <div className="max-container relative">
-                <div
-                    ref={headingRef}
-                    className="absolute top-40 left-0 z-10 pointer-events-none select-none"
-                >
-                    <h1 className="display-header text-ink-light">
-                        My
-                        <br />
-                        Arsenal
-                    </h1>
-                </div>
+            <div className="max-container">
+                <div className="w-full relative">
+                    <div
+                        ref={headingRef}
+                        className="absolute top-0 left-0 pt-[7rem] z-10 pointer-events-none select-none"
+                    >
+                        <h1 className="display-header text-ink-light">
+                            My
+                            <br />
+                            Arsenal
+                        </h1>
+                    </div>
 
-                <canvas
-                    ref={canvasRef}
-                    className="absolute inset-0 w-full h-screen"
-                />
+                    <canvas
+                        ref={canvasRef}
+                        className="absolute inset-0 w-full h-screen"
+                    />
+                </div>
             </div>
         </section>
     )
