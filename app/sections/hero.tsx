@@ -3,7 +3,7 @@ import React from 'react'
 
 const Hero = () => {
     return (
-        <section className="max-container min-h-screen flex items-center justify-center py-[10rem]">
+        <section className="max-container min-h-screen flex items-center justify-center py-[10rem] bg-[#dfdfdf]">
             <h1 className="font-bold leading-[0.85] text-justify uppercase break-words px-[10rem]">
                 <Image
                     src="/assets/Ankit Bhagat.png"

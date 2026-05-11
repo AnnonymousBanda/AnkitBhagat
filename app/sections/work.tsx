@@ -8,6 +8,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const work = (): React.JSX.Element => {
+    const sectionRef = useRef<HTMLElement>(null)
     const headerRef = useRef<HTMLDivElement>(null)
     const shadowRef = useRef<HTMLImageElement>(null)
 
@@ -15,26 +16,28 @@ const work = (): React.JSX.Element => {
 
     useEffect(() => {
         const tl = gsap.timeline({
-            defaults: { ease: 'back.out(1.4)' },
+            defaults: {
+                ease: 'elastic.out(1,0.4)',
+            },
             scrollTrigger: {
-                trigger: headerRef.current,
-                start: 'top 25%',
+                trigger: sectionRef.current,
+                start: 'top 40%',
                 toggleActions: 'play none none none',
                 // markers: true,
             },
         })
 
         tl.from(headerRef.current, {
-            duration: 0.8,
-            y: -300,
+            duration: 2.5,
+            y: -350,
         })
         tl.from(
             shadowRef.current,
             {
-                duration: 0.8,
+                duration: 2.5,
                 width: 0,
             },
-            '-=0.8',
+            '-=2.5',
         )
     }, [])
 
@@ -316,12 +319,45 @@ const work = (): React.JSX.Element => {
     }
 
     return (
-        <section className="pb-[10rem] max-container">
-            <div className="select-none w-full flex-center flex-col overflow-hidden pt-[15rem] gap-[3.5rem] mb-[10rem]">
-                <div className="flex-center flex-col" ref={headerRef}>
-                    <p className="uppercase font-extralight opacity-50 tracking-[0.48px]">
-                        What I&apos;ve been involved in
-                    </p>
+        <section className="pb-[30rem] max-container" ref={sectionRef}>
+            <div className="select-none w-full flex-center flex-col overflow-hidden gap-[3.5rem]">
+                <div
+                    className="flex-center flex-col relative top-[-18rem]"
+                    ref={headerRef}
+                >
+                    <div className="w-full flex items-end justify-around">
+                        <svg
+                            width="4"
+                            height="400"
+                            className="relative top-[8rem]"
+                        >
+                            <line
+                                x1="1"
+                                y1="0"
+                                x2="1"
+                                y2="400"
+                                stroke="black"
+                                strokeWidth="1.5"
+                            />
+                        </svg>
+                        <p className="uppercase font-extralight opacity-50 tracking-[0.48px]">
+                            What I&apos;ve been involved in
+                        </p>
+                        <svg
+                            width="4"
+                            height="400"
+                            className="relative top-[8rem]"
+                        >
+                            <line
+                                x1="1"
+                                y1="0"
+                                x2="1"
+                                y2="400"
+                                stroke="black"
+                                strokeWidth="1.5"
+                            />
+                        </svg>
+                    </div>
                     <h1 className="uppercase display-header font-semibold">
                         Works
                     </h1>
@@ -331,7 +367,7 @@ const work = (): React.JSX.Element => {
                     alt="shadow"
                     width={400}
                     height={400}
-                    className="mt-[2rem] mb-[4rem]"
+                    className="mt-[2rem] mb-[4rem] relative top-[-18rem]"
                     ref={shadowRef}
                 />
             </div>
