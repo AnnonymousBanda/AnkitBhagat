@@ -322,7 +322,6 @@ const Comm = () => {
                     <div className="flex items-center gap-3">
                         <input
                             ref={inputRef}
-                            autoFocus
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
