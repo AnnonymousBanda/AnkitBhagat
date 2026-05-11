@@ -5,11 +5,14 @@ const navbar = (): React.JSX.Element => {
     return (
         <nav className="w-screen fixed top-0 left-0 z-1000 border-b border-b-canvas-dark bg-canvas-light">
             <div className="max-container py-[1rem] flex-center justify-between!">
-                <h3 className="font-black tracking-[-0.18rem] uppercase text-[2rem]">
-                    Ankit
-                    <br />
-                    Bhagat
-                </h3>
+                <div className="flex flex-col gap-0 select-none">
+                    <h3 className="font-black tracking-[-0.18rem] uppercase text-[2rem] leading-[1.6rem]">
+                        Ankit
+                    </h3>
+                    <h3 className="font-black tracking-[-0.18rem] uppercase text-[2rem] leading-[1.6rem]">
+                        Bhagat
+                    </h3>
+                </div>
 
                 <div className="flex-center gap-[1rem]">
                     <p className="uppercase tracking-[2.8px] font-normal scale-75">
