@@ -5,9 +5,12 @@ const footer = () => {
         <footer className="w-full bg-canvas-medium border-t border-t-canvas-dark">
             <div className="max-container flex flex-row items-center justify-between py-[10rem]">
                 <div className="flex flex-col gap-[2rem]">
-                    <h1 className="tracking-[-0.25rem] text-[6rem] font-extrabold uppercase">
-                        Ankit Bhagat
-                    </h1>
+                    <div>
+                        <h1 className="tracking-[-0.25rem] text-[6rem] font-extrabold uppercase leading-[1]">
+                            Ankit Bhagat
+                        </h1>
+                        <p className="uppercase">Kolkata - IIT Patna</p>
+                    </div>
 
                     <p className="uppercase font-mono opacity-75 tracking-wider">
                         © 2026 Ankit Bhagat. Built without AI.

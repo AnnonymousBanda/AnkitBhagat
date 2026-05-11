@@ -1,0 +1,270 @@
+[
+    {
+        "name": "help",
+        "aliases": ["commands", "?"],
+        "description": "List all available commands",
+        "lines": [
+            { "type": "info", "content": "AVAILABLE COMMANDS" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "success", "content": "about      → who I am" },
+            {
+                "type": "success",
+                "content": "hire       → availability & roles"
+            },
+            {
+                "type": "success",
+                "content": "whyhire    → why you should hire me"
+            },
+            { "type": "success", "content": "projects   → things I've built" },
+            { "type": "success", "content": "stack      → tech I work with" },
+            { "type": "success", "content": "socials    → find me online" },
+            { "type": "success", "content": "contact    → get in touch" },
+            { "type": "success", "content": "resume     → see my resume" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "info", "content": "TIP: use ↑ ↓ to navigate history" }
+        ]
+    },
+    {
+        "name": "about",
+        "aliases": ["whoami", "me"],
+        "description": "Who I am",
+        "lines": [
+            { "type": "success", "content": "ANKIT BHAGAT" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "info",
+                "content": "Fullstack Engineer • Competitive Programmer"
+            },
+            {
+                "type": "info",
+                "content": "Raised in Kolkata. Building at IIT Patna (Batch 2027)."
+            },
+            {
+                "type": "info",
+                "content": "Focused on infrastructure, interactive web systems, ML tooling and product engineering."
+            },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "success", "content": "→ type 'hire' to work with me" }
+        ]
+    },
+    {
+        "name": "hire",
+        "aliases": ["hireme", "available"],
+        "description": "Hiring availability",
+        "lines": [
+            { "type": "success", "content": "OPEN TO OPPORTUNITIES" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "info",
+                "content": "✓  Internships (Summer / Winter 2026)"
+            },
+            { "type": "info", "content": "✓  Freelance & Contract Work" },
+            { "type": "info", "content": "✓  High-impact Engineering Roles" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "info", "content": "DOMAINS" },
+            {
+                "type": "success",
+                "content": "Frontend Engineering • Systems • Infrastructure • Interactive Experiences"
+            },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "info", "content": "→ reach out via 'contact'" }
+        ]
+    },
+    {
+        "name": "whyhire",
+        "aliases": ["why", "value"],
+        "description": "Why hire Ankit",
+        "lines": [
+            { "type": "success", "content": "WHY ANKIT?" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "info",
+                "content": "✓  Ships production-ready systems, not just pretty demos"
+            },
+            {
+                "type": "info",
+                "content": "✓  Full-stack ownership: from CI/CD pipelines to pixel-perfect UI"
+            },
+            {
+                "type": "info",
+                "content": "✓  Comfortable across ML, systems, app dev and product engineering"
+            },
+            {
+                "type": "info",
+                "content": "✓  IIT Patna — top-tier technical foundation"
+            },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "success",
+                "content": "→ see 'projects' for proof of work"
+            }
+        ]
+    },
+    {
+        "name": "projects",
+        "aliases": ["work", "portfolio", "builds"],
+        "description": "Projects I've built",
+        "lines": [
+            { "type": "success", "content": "SELECTED PROJECTS" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "info", "content": "01  Personal Portfolio" },
+            {
+                "type": "muted",
+                "content": "    Next.js • GSAP • Matter.js • Three.js"
+            },
+            {
+                "type": "muted",
+                "content": "    Interactive physics-based portfolio with terminal interface"
+            },
+            { "type": "info", "content": "02  [Project Name]" },
+            {
+                "type": "muted",
+                "content": "    Add your real projects here via commands.json"
+            },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "success",
+                "content": "→ see all work at github.com/annonymousbanda",
+                "href": "https://github.com/annonymousbanda"
+            }
+        ]
+    },
+    {
+        "name": "stack",
+        "aliases": ["tech", "arsenal", "tools"],
+        "description": "Tech stack",
+        "lines": [
+            { "type": "success", "content": "TECH STACK" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "info", "content": "FRONTEND" },
+            {
+                "type": "success",
+                "content": "Next.js • React • TypeScript • GSAP • Tailwind • Three.js"
+            },
+            { "type": "info", "content": "BACKEND" },
+            {
+                "type": "success",
+                "content": "Node.js • Express • Java • Python • C++"
+            },
+            { "type": "info", "content": "DATA" },
+            {
+                "type": "success",
+                "content": "PostgreSQL • MongoDB • MySQL • Redis • Firebase"
+            },
+            { "type": "info", "content": "INFRA" },
+            {
+                "type": "success",
+                "content": "Docker • AWS • NGINX • CI/CD • Linux"
+            }
+        ]
+    },
+    {
+        "name": "socials",
+        "aliases": ["links", "find"],
+        "description": "Social media links",
+        "lines": [
+            { "type": "success", "content": "FIND ME ONLINE" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "link",
+                "content": "GITHUB     → github.com/annonymousbanda",
+                "href": "https://github.com/annonymousbanda"
+            },
+            {
+                "type": "link",
+                "content": "LINKEDIN   → linkedin.com/in/ankit-bhagat-4836aa2a7",
+                "href": "https://www.linkedin.com/in/ankit-bhagat-4836aa2a7/"
+            },
+            {
+                "type": "link",
+                "content": "LEETCODE   → leetcode.com/u/annonymousbanda",
+                "href": "https://leetcode.com/u/annonymousbanda"
+            }
+        ]
+    },
+    {
+        "name": "contact",
+        "aliases": ["mail", "email", "reach"],
+        "description": "Contact information",
+        "lines": [
+            { "type": "success", "content": "GET IN TOUCH" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "link",
+                "content": "EMAIL → annonymous007banda@gmail.com",
+                "href": "mailto:annonymous007banda@gmail.com?subject=Interested%20in%20Working%20Together&body=Hi%20Ankit%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20was%20really%20impressed%20by%20your%20work.%20I%E2%80%99d%20love%20to%20connect%20and%20discuss%20potential%20opportunities%20to%20collaborate%20or%20work%20together.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D"
+            },
+            {
+                "type": "link",
+                "content": "WhatsApp  → +91 9051702915",
+                "href": "https://wa.me/919051702915?text=Hi%20Ankit%2C%20I%20found%20your%20contact%20on%20your%20portfolio.%20I%27d%20like%20to%20get%20in%20touch%20with%20you."
+            },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            { "type": "info", "content": "Response time: usually within 24h" }
+        ]
+    },
+    {
+        "name": "resume",
+        "aliases": ["cv", "download"],
+        "description": "View resume",
+        "lines": [
+            { "type": "success", "content": "RESUME / CV" },
+            {
+                "type": "muted",
+                "content": "──────────────────────────────────────"
+            },
+            {
+                "type": "link",
+                "content": "→ View PDF",
+                "href": "https://drive.google.com/file/d/1CNByw3Y3MvfdCTsO_zF8RLtsLY6x5FO-/view",
+                "download": true
+            },
+            { "type": "info", "content": "Last updated: 2026 May" }
+        ]
+    }
+]

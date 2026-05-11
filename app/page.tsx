@@ -1,4 +1,4 @@
-import { Arsenal, Hero, Work } from './sections'
+import { Arsenal, Comm, Hero, Work } from './sections'
 
 export default function Home() {
     return (
@@ -6,6 +6,7 @@ export default function Home() {
             <Hero />
             <Work />
             <Arsenal />
+            <Comm />
         </main>
     )
 }
