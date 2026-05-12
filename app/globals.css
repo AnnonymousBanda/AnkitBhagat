@@ -113,8 +113,9 @@
 
 @layer components {
     .display-header {
-        @apply font-display font-black uppercase leading-[0.8] tracking-[-0.55rem] min-[600px]:tracking-[-0.8rem] selection:bg-ink-dark selection:text-canvas-light;
-        font-size: clamp(4rem, 10vw, 12rem);
+        @apply font-display font-black uppercase leading-[0.8] tracking-[-0.25rem] min-[400px]:tracking-[-0.35rem] min-[600px]:tracking-[-0.8rem] selection:bg-ink-dark selection:text-canvas-light;
+        font-size: clamp(8rem, 6.4615rem + 3.8462vw, 12rem);
+        line-height: calc(1 / 1.5);
     }
 }
 

@@ -11,10 +11,18 @@ const work = (): React.JSX.Element => {
     const sectionRef = useRef<HTMLElement>(null)
     const headerRef = useRef<HTMLDivElement>(null)
     const shadowRef = useRef<HTMLImageElement>(null)
+    const headerDescRef = useRef<HTMLParagraphElement>(null)
 
     gsap.registerPlugin(ScrollTrigger)
 
     useEffect(() => {
+        const getResponsiveY = () => {
+            const width = window.innerWidth
+            if (width < 400) return -175
+            if (width < 768) return -260
+            return -350
+        }
+
         const tl = gsap.timeline({
             defaults: {
                 ease: 'elastic.out(1,0.4)',
@@ -29,7 +37,7 @@ const work = (): React.JSX.Element => {
 
         tl.from(headerRef.current, {
             duration: 2.5,
-            y: -350,
+            y: getResponsiveY(),
         })
         tl.from(
             shadowRef.current,
@@ -38,6 +46,16 @@ const work = (): React.JSX.Element => {
                 width: 0,
             },
             '-=2.5',
+        )
+        tl.from(
+            headerDescRef.current,
+            {
+                duration: 0.8,
+                y: -50,
+                opacity: 0,
+                ease: 'back,in',
+            },
+            '-=1.5',
         )
     }, [])
 
@@ -143,15 +161,15 @@ const work = (): React.JSX.Element => {
     }: ProjectProps) => {
         return (
             <article
-                className={`w-full flex-center flex-col border-ink-dark gap-[3rem] ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
+                className={`w-full h-fit flex-center flex-col border-ink-dark gap-[3rem] ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
             >
                 <div
-                    className="lg:w-5/12 aspect-video bg-canvas-dark relative overflow-hidden rounded-md group bg-fixed bg-cover bg-center grayscale-0 hover:grayscale-0 transition-all duration-500"
+                    className="lg:w-5/12 w-full min-h-[40rem] aspect-video bg-canvas-dark relative overflow-hidden rounded-md group bg-fixed bg-cover bg-center grayscale-0 hover:grayscale-0 transition-all duration-500"
                     style={{ backgroundImage: `url(${imageSrc})` }}
                 ></div>
 
                 <div
-                    className={`lg:w-5/12 flex-center flex-col gap-[3rem] ${reverse ? 'text-right items-end!' : 'text-left items-start!'}`}
+                    className={`lg:w-5/12 w-full flex-center flex-col gap-[3rem] text-left items-start! ${reverse ? 'lg:text-right lg:items-end!' : ''}`}
                 >
                     <div>
                         <span className="font-mono text-[1.4rem] tracking-widest uppercase opacity-60">
@@ -176,7 +194,7 @@ const work = (): React.JSX.Element => {
                         </div>
 
                         <div
-                            className={`flex flex-wrap gap-[1rem] font-mono uppercase mt-[1rem] ${reverse ? 'justify-end!' : ''}`}
+                            className={`flex flex-wrap gap-[1rem] font-mono uppercase mt-[1rem] ${reverse ? 'lg:justify-end!' : ''}`}
                         >
                             {techStack.map((tech, index) => {
                                 const AVAILABLE_ICONS = [
@@ -319,17 +337,19 @@ const work = (): React.JSX.Element => {
     }
 
     return (
-        <section className="pb-[30rem] max-container" ref={sectionRef}>
-            <div className="select-none w-full flex-center flex-col overflow-hidden gap-[3.5rem]">
+        <section
+            className="pb-[30rem] lg:pb-[22rem] md:pb-[16rem] sm:pb-[12rem] max-[450px]:pb-[10rem] max-container"
+            ref={sectionRef}
+        >
+            <div className="select-none w-fit mx-auto flex-center flex-col overflow-hidden gap-[3.5rem] lg:gap-[2.5rem] md:gap-[2rem] sm:gap-[1.5rem] max-[450px]:gap-[1.2rem] lg:pb-[8rem] md:pb-[6rem] sm:pb-[4rem] pb-[0rem]">
                 <div
-                    className="flex-center flex-col relative top-[-18rem]"
+                    className="flex-center flex-col relative top-[-18rem] gap-0"
                     ref={headerRef}
                 >
-                    <div className="w-full flex items-end justify-around">
+                    <div className="w-full flex items-end justify-between px-[2px] min-[400px]:px-[2.5px] min-[600px]:px-[5px]">
                         <svg
                             width="4"
-                            height="400"
-                            className="relative top-[8rem]"
+                            className="h-[400px] max-md:h-[300px] max-[399px]:h-[200px]"
                         >
                             <line
                                 x1="1"
@@ -340,13 +360,15 @@ const work = (): React.JSX.Element => {
                                 strokeWidth="1.5"
                             />
                         </svg>
-                        <p className="uppercase font-extralight opacity-50 tracking-[0.48px]">
+                        <p
+                            className="uppercase w-full px-[10px] text-base md:text-2xl font-extralight opacity-50 tracking-[0.48px] absolute left-1/2 -translate-x-1/2 mb-[1rem] text-center"
+                            ref={headerDescRef}
+                        >
                             What I&apos;ve been involved in
                         </p>
                         <svg
                             width="4"
-                            height="400"
-                            className="relative top-[8rem]"
+                            className="h-[400px] max-md:h-[300px] max-[399px]:h-[200px]"
                         >
                             <line
                                 x1="1"
@@ -359,20 +381,20 @@ const work = (): React.JSX.Element => {
                         </svg>
                     </div>
                     <h1 className="uppercase display-header font-semibold">
-                        Works
+                        Work
                     </h1>
                 </div>
                 <Image
                     src="/assets/shadow.png"
                     alt="shadow"
-                    width={400}
-                    height={400}
-                    className="mt-[2rem] mb-[4rem] relative top-[-18rem]"
+                    width={3}
+                    height={1}
+                    className="mt-[6rem] max-md:mt-[4rem] max-[399px]:mt-[2rem] lg:mb-[3rem] md:mb-[2rem] sm:mb-[1.5rem] min-[450px]:mb-[1.2rem] mb-[0rem] w-full h-auto relative top-[-18rem]"
                     ref={shadowRef}
                 />
             </div>
 
-            <div className="w-full flex-center flex-col gap-[20rem]">
+            <div className="w-full flex-center flex-col gap-[20rem] lg:gap-[16rem] md:gap-[12rem] max-[600px]:gap-[10rem]">
                 {projectsData.map((project, index) => (
                     <ProjectCard
                         key={index}
