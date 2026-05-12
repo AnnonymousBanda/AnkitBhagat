@@ -29,9 +29,6 @@ type LayoutLine = {
 const INTRO: string =
     'ANKIT HERE. RAISED IN KOLKATA. LEVELING UP AT IIT PATNA. I’VE BEEN WRITING CODE SINCE I WAS A KID IN 2016. I REFUSE TO PICK JUST ONE SIDE. ML, APP DEV, GAME DEV, WEB—I’VE DONE IT ALL AND I’M READY FOR MORE. I BUILD DIGITAL EXPERIENCES THAT ARE TOO LOUD TO IGNORE. IF YOU’RE TIRED OF BASIC SITES, YOU’RE IN THE RIGHT PLACE. SCROLL DOWN TO WITNESS THE EVOLUTION.'
 
-const FONT: string = '700 50px "Anybody", sans-serif'
-const LINE_HEIGHT: number = 54
-
 const Hero = () => {
     const stageRef = useRef<HTMLDivElement>(null)
     const avatarRef = useRef<HTMLImageElement>(null)
@@ -45,6 +42,13 @@ const Hero = () => {
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
     const [isDragging, setIsDragging] = useState(false)
     const dragStart = useRef({ x: 0, y: 0, offsetX: 0, offsetY: 0 })
+
+    const [config, setConfig] = useState({
+        fontSize: 42,
+        lineHeight: 46,
+        imgW: 380,
+        imgH: 570,
+    })
 
     const calculateLayout = useCallback(() => {
         if (
@@ -74,68 +78,140 @@ const Hero = () => {
             0,
         )
 
-        const generated: LayoutLine[] = []
-        let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 }
-        let y = 0
-        let isDone = false
+        let bestStartY = 0
+        let finalGenerated: LayoutLine[] = []
 
-        while (y + LINE_HEIGHT <= stageRect.height && !isDone) {
-            const bandTop = y
-            const bandBottom = y + LINE_HEIGHT
+        // Multi-pass simulation to calculate the exact vertical center
+        for (let pass = 0; pass < 4; pass++) {
+            const generated: LayoutLine[] = []
+            let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 }
+            let y = bestStartY
+            let isDone = false
 
-            const blocked = getPolygonIntervalForBand(
-                transformedHull,
-                bandTop,
-                bandBottom,
-                0,
-                0,
-            )
+            // We allow Y to run past the stage height during probing so we can measure the true height
+            while (y < stageRect.height * 2 && !isDone) {
+                const bandTop = y
+                const bandBottom = y + config.lineHeight
 
-            const slots = carveTextLineSlots(
-                { left: 0, right: stageRect.width },
-                blocked ? [blocked] : [],
-            )
+                const blocked = getPolygonIntervalForBand(
+                    transformedHull,
+                    bandTop,
+                    bandBottom,
+                    0,
+                    0,
+                )
 
-            slots.sort((a, b) => a.left - b.left)
+                const slots = carveTextLineSlots(
+                    { left: 0, right: stageRect.width },
+                    blocked ? [blocked] : [],
+                )
 
-            if (!slots.length) {
-                y += LINE_HEIGHT
-                continue
-            }
+                slots.sort((a, b) => a.left - b.left)
 
-            for (const slot of slots) {
-                const width = slot.right - slot.left
-
-                if (width < 40) continue
-
-                const line = layoutNextLine(preparedRef.current, cursor, width)
-
-                if (!line) {
-                    isDone = true
-                    break
+                if (!slots.length) {
+                    y += config.lineHeight
+                    continue
                 }
 
-                generated.push({
-                    x: slot.left,
-                    y,
-                    width,
-                    text: line.text,
-                })
+                for (const slot of slots) {
+                    const width = slot.right - slot.left
 
-                cursor = line.end
+                    if (width < Math.max(30, config.fontSize * 0.6)) continue
+
+                    const line = layoutNextLine(
+                        preparedRef.current,
+                        cursor,
+                        width,
+                    )
+
+                    if (!line) {
+                        isDone = true
+                        break
+                    }
+
+                    generated.push({
+                        x: slot.left,
+                        y,
+                        width,
+                        text: line.text,
+                    })
+
+                    cursor = line.end
+                }
+
+                y += config.lineHeight
             }
 
-            y += LINE_HEIGHT
+            finalGenerated = generated
+
+            // After calculating the layout, measure it and correct the Y offset to center it
+            if (generated.length > 0) {
+                const firstY = generated[0].y
+                const lastY =
+                    generated[generated.length - 1].y + config.lineHeight
+                const textHeight = lastY - firstY
+
+                const desiredFirstY = (stageRect.height - textHeight) / 2
+                const correction = desiredFirstY - firstY
+
+                // If it's perfectly centered (within 2 pixels), lock it in and stop looping
+                if (Math.abs(correction) < 2) break
+
+                bestStartY += correction
+            } else {
+                break
+            }
         }
 
-        setLines(generated)
-    }, [])
+        // Filter out any lines that ended up getting pushed totally off-screen
+        setLines(
+            finalGenerated.filter(
+                (line) =>
+                    line.y >= -config.lineHeight && line.y <= stageRect.height,
+            ),
+        )
+    }, [config.lineHeight, config.fontSize])
 
     useEffect(() => {
         let isActive = true
 
+        const updateConfig = () => {
+            const w = window.innerWidth
+            if (w < 640) {
+                setConfig({
+                    fontSize: 20,
+                    lineHeight: 24,
+                    imgW: 180,
+                    imgH: 270,
+                })
+            } else if (w < 1024) {
+                setConfig({
+                    fontSize: 28,
+                    lineHeight: 32,
+                    imgW: 260,
+                    imgH: 390,
+                })
+            } else if (w < 1440) {
+                setConfig({
+                    fontSize: 34,
+                    lineHeight: 38,
+                    imgW: 320,
+                    imgH: 480,
+                })
+            } else {
+                setConfig({
+                    fontSize: 42,
+                    lineHeight: 46,
+                    imgW: 380,
+                    imgH: 570,
+                })
+            }
+        }
+
+        updateConfig()
+        window.addEventListener('resize', updateConfig)
+
         const init = async () => {
-            preparedRef.current = prepareWithSegments(INTRO, FONT)
             const points = await getWrapHull('/assets/Ankit Bhagat.png', {
                 smoothRadius: 6,
                 mode: 'mean',
@@ -150,8 +226,17 @@ const Hero = () => {
 
         return () => {
             isActive = false
+            window.removeEventListener('resize', updateConfig)
         }
     }, [])
+
+    useEffect(() => {
+        preparedRef.current = prepareWithSegments(
+            INTRO,
+            `700 ${config.fontSize}px "Anybody", sans-serif`,
+        )
+        calculateLayout()
+    }, [config, calculateLayout])
 
     useEffect(() => {
         if (!isLoaded) return
@@ -214,21 +299,21 @@ const Hero = () => {
     }
 
     return (
-        <section className="h-screen w-full pt-[10rem] px-[10rem] bg-canvas-medium overflow-hidden">
+        <section className="h-screen w-full pt-12 px-4 sm:pt-20 sm:px-8 lg:pt-24 lg:px-12 xl:px-24 bg-canvas-medium overflow-hidden">
             <div
-                className="max-container h-full flex items-center justify-center relative"
+                className="h-full w-full flex items-center justify-center relative"
                 ref={stageRef}
             >
                 <Image
                     src="/assets/Ankit Bhagat.png"
                     alt="Ankit Bhagat"
-                    width={400}
-                    height={600}
+                    width={config.imgW}
+                    height={config.imgH}
                     draggable={false}
                     className={`absolute top-1/2 left-1/2 touch-none z-10 ${
                         isDragging
                             ? 'cursor-grabbing'
-                            : 'cursor-grab transition-transform duration-[400ms] ease-out'
+                            : 'cursor-grab transition-transform duration-[500ms] cubic-bezier(0.34, 1.56, 0.64, 1)'
                     }`}
                     style={{
                         transform: `translate(calc(-50% + ${dragOffset.x}px), calc(-50% + ${dragOffset.y}px))`,
@@ -250,7 +335,7 @@ const Hero = () => {
                             top: line.y,
                             width: line.width,
                             fontFamily: "'Anybody', sans-serif",
-                            fontSize: '50px',
+                            fontSize: `${config.fontSize}px`,
                         }}
                     >
                         {line.text}
