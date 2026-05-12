@@ -109,6 +109,12 @@
     .flex-center {
         @apply flex items-center justify-center;
     }
+
+    /* monospace utility used for scramble effect and terminal text */
+    .mono {
+        font-family: var(--font-mono) !important;
+        font-variant-numeric: tabular-nums;
+    }
 }
 
 @layer components {

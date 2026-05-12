@@ -277,7 +277,10 @@ const Comm = () => {
     )
 
     return (
-        <section className="max-container flex-center min-h-screen py-[15rem]">
+        <section
+            id="comm"
+            className="max-container flex-center min-h-screen py-[15rem]"
+        >
             <div
                 className="h-full w-full overflow-hidden rounded-[2rem] border-2 border-black bg-[#FFFFFF] shadow-[12px_12px_0px_#000]"
                 onClick={() => inputRef.current?.focus()}
@@ -362,7 +365,6 @@ const Comm = () => {
                 </div>
             </div>
 
-            {/* Blink keyframe — injected once */}
             <style>{`
                 @keyframes blink {
                     0%, 100% { opacity: 1; }

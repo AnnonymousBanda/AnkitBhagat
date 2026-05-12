@@ -340,6 +340,7 @@ const work = (): React.JSX.Element => {
         <section
             className="pb-[30rem] lg:pb-[22rem] md:pb-[16rem] sm:pb-[12rem] max-[450px]:pb-[10rem] max-container"
             ref={sectionRef}
+            id="work"
         >
             <div className="select-none w-fit mx-auto flex-center flex-col overflow-hidden gap-[3.5rem] lg:gap-[2.5rem] md:gap-[2rem] sm:gap-[1.5rem] max-[450px]:gap-[1.2rem] lg:pb-[8rem] md:pb-[6rem] sm:pb-[4rem] pb-[0rem]">
                 <div

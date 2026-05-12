@@ -445,6 +445,7 @@ export default function Arsenal() {
 
     return (
         <section
+            id="arsenal"
             ref={sectionRef}
             className="w-full h-screen bg-canvas-dark cursor-[url('/icons/cursor-dark.png')_0_0,_auto] relative overflow-hidden"
         >
