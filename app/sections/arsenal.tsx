@@ -146,7 +146,7 @@ function buildSim(canvas: HTMLCanvasElement, W: number, H: number) {
     const engine = Engine.create({ gravity: { y: 1.2 } })
     const world = engine.world
 
-    const ground = Bodies.rectangle(W / 2, H + 25, W * 2, 50, {
+    const ground = Bodies.rectangle(W / 2, H + 10, W * 2, 50, {
         isStatic: true,
     })
     const ceiling = Bodies.rectangle(W / 2, -25, W * 2, 50, { isStatic: true })

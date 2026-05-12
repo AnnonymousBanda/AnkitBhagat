@@ -218,7 +218,7 @@ const work = (): React.JSX.Element => {
                                     'PostgresSQL.svg',
                                     'Prisma.svg',
                                     'Python.svg',
-                                    'ReactNative.svg',
+                                    'React Native.svg',
                                     'Redis.svg',
                                     'scikit-learn.svg',
                                     'Tailwind CSS.svg',
